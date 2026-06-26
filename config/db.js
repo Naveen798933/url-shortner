@@ -1,15 +1,12 @@
 const mongoose = require('mongoose');
-const config = require('config');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const connectDB = async () => {
   try {
-    let dbUri = config.get('mongoURI');
+    const dbUri = process.env.MONGO_URI;
     
     if (!dbUri) {
-      const mongoServer = await MongoMemoryServer.create();
-      dbUri = mongoServer.getUri();
-      console.log('No mongoURI provided in config. Starting in-memory MongoDB server...');
+      console.error('Error: MONGO_URI is missing in .env file');
+      process.exit(1);
     }
 
     await mongoose.connect(dbUri);

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const validUrl = require('valid-url');
 const { nanoid } = require('nanoid');
-const config = require('config');
 const rateLimit = require('express-rate-limit');
 
 const Url = require('../models/Url');
@@ -18,14 +17,18 @@ const shortenLimiter = rateLimit({
 // @desc      Create short URL
 router.post('/shorten', shortenLimiter, async (req, res) => {
   const { longUrl, customAlias } = req.body;
-  const baseUrl = config.get('baseUrl');
+  const baseUrl = process.env.BASE_URL;
 
   // Check base url
   if (!validUrl.isUri(baseUrl)) {
     return res.status(401).json('Invalid base url');
   }
 
-  // Check long url
+  // Check long url format and length
+  if (!longUrl || typeof longUrl !== 'string' || longUrl.length > 2000) {
+    return res.status(400).json('Invalid long url or exceeds 2000 characters');
+  }
+
   if (!validUrl.isUri(longUrl)) {
     return res.status(401).json('Invalid long url');
   }

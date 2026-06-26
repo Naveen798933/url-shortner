@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -7,6 +9,8 @@ const app = express();
 // Connect to database
 connectDB();
 
+// Security headers
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 
 // Serve static files from the public directory
