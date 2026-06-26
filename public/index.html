@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>URL Shortener</h1>
+            <p>Shorten your links, track your clicks.</p>
+        </header>
+
+        <main>
+            <form id="shorten-form">
+                <div class="input-group">
+                    <input type="url" id="long-url" placeholder="Enter long URL (e.g., https://example.com)" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="custom-alias" placeholder="Custom alias (optional, e.g., my-link)">
+                </div>
+                <button type="submit" id="submit-btn">Shorten URL</button>
+            </form>
+
+            <div id="result-container" class="hidden">
+                <div class="result-card">
+                    <h3>Your Shortened URL:</h3>
+                    <a href="#" id="short-url" target="_blank"></a>
+                    <button id="copy-btn">Copy</button>
+                </div>
+                
+                <div class="stats-card">
+                    <h3>Analytics</h3>
+                    <p>Total Clicks: <span id="clicks-count">0</span></p>
+                    <button id="refresh-stats">Refresh Stats</button>
+                </div>
+            </div>
+
+            <div id="error-message" class="hidden error"></div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
